@@ -37,6 +37,7 @@ var autoComplete = (function(){
             offsetTop: 1,
             cache: 1,
             menuClass: '',
+            menuId: '',
             renderItem: function (item, search){
                 // escape special characters
                 search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
@@ -54,7 +55,7 @@ var autoComplete = (function(){
 
             // create suggestions container "sc"
             that.sc = document.createElement('div');
-            that.sc.className = 'autocomplete-suggestions '+o.menuClass;
+            that.sc.className = 'autocomplete-suggestions '+o.menuClass+' '+o.menuId;
 
             that.autocompleteAttr = that.getAttribute('autocomplete');
             that.setAttribute('autocomplete', 'off');
