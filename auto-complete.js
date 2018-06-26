@@ -36,6 +36,7 @@ var autoComplete = (function(){
             offsetLeft: 0,
             offsetTop: 1,
             cache: 1,
+            parent: '',
             menuClass: '',
             renderItem: function (item, search){
                 // escape special characters
@@ -115,16 +116,32 @@ var autoComplete = (function(){
             addEvent(that, 'blur', that.blurHandler);
 
             var suggest = function(data){
-                var val = that.value;
+                var val = that.value,
+                    textDropDown = o.parent.dataset.acTextDd,
+                    textInfo = o.parent.dataset.acTextInfo,
+                    textInfoWrapper = document.getElementById('infotext-'+o.parent.id);
+
                 that.cache[val] = data;
                 if (data.length && val.length >= o.minChars) {
-                    var s = '';
-                    for (var i=0;i<data.length;i++) s += o.renderItem(data[i], val);
-                    that.sc.innerHTML = s;
-                    that.updateSC(0);
+                  var s = '';
+                  for (var i=0;i<data.length;i++) s += o.renderItem(data[i], val);
+                  that.sc.innerHTML = '<div class="text--muted">'+textDropDown+'</div>'+s; // DYNAMISIEREN
+                  that.updateSC(0);
+                  // Remove info text
+                  if (textInfoWrapper) {
+                    textInfoWrapper.parentNode.removeChild(textInfoWrapper);
+                  }
+                }else{
+                  that.sc.style.display = 'none';
+                  // Add info text, if not already there.
+                  if (val.length > 0 && textInfoWrapper === null) {
+                    let infoText = document.createElement('div');
+                    infoText.innerHTML = textInfo;
+                    infoText.setAttribute("id", 'infotext-'+o.parent.id);
+                    infoText.setAttribute("class", "text--muted");
+                    o.parent.appendChild(infoText);
+                  }
                 }
-                else
-                    that.sc.style.display = 'none';
             }
 
             that.keydownHandler = function(e){
@@ -179,6 +196,7 @@ var autoComplete = (function(){
                     } else {
                         that.last_val = val;
                         that.sc.style.display = 'none';
+                        console.log("fggggggg");
                     }
                 }
             };
