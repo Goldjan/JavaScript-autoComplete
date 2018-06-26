@@ -125,7 +125,7 @@ var autoComplete = (function(){
                 if (data.length && val.length >= o.minChars) {
                   var s = '';
                   for (var i=0;i<data.length;i++) s += o.renderItem(data[i], val);
-                  that.sc.innerHTML = '<div class="text--muted">'+textDropDown+'</div>'+s; // DYNAMISIEREN
+                  that.sc.innerHTML = '<div class="text--muted mdc-list-item">'+textDropDown+'</div>'+s; // DYNAMISIEREN
                   that.updateSC(0);
                   // Remove info text
                   if (textInfoWrapper) {
