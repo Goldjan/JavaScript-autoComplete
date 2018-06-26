@@ -134,12 +134,15 @@ var autoComplete = (function(){
                 }else{
                   that.sc.style.display = 'none';
                   // Add info text, if not already there.
-                  if (val.length > 0 && textInfoWrapper === null) {
-                    let infoText = document.createElement('div');
-                    infoText.innerHTML = textInfo;
-                    infoText.setAttribute("id", 'infotext-'+o.parent.id);
-                    infoText.setAttribute("class", "text--muted");
-                    o.parent.appendChild(infoText);
+                  // Insert only if an input is made
+                  if (val.length > 0) {
+                    if (val.length > 0 && textInfoWrapper === null) {
+                      let infoText = document.createElement('div');
+                      infoText.innerHTML = textInfo;
+                      infoText.setAttribute("id", 'infotext-'+o.parent.id);
+                      infoText.setAttribute("class", "text--muted");
+                      o.parent.appendChild(infoText);
+                    }
                   }
                 }
             }
